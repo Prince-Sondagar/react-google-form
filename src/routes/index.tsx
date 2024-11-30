@@ -5,8 +5,13 @@ import { IRouteArray } from "../types";
 import Dashboard from "../pages/main/dashboard";
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
+import Root from "../pages/landing";
 
 const AuthRoutes: IRouteArray[] = [
+    {
+        path: "/",
+        component: <Root />
+    },
     {
         path: '/login',
         component: <Login />

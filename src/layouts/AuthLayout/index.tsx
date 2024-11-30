@@ -1,20 +1,24 @@
 import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import { Outlet } from "react-router";
+import { Outlet, useLocation, } from "react-router";
 import GuestGuard from "../../utils/route-guard/GuestGuard";
 
 
+const excludePath = [
+    '/'
+];
 
 
 const AuthLayout = () => {
+    const { pathname } = useLocation();
 
     return (
         <>
             <GuestGuard>
-                <Header />
+                {!excludePath.includes(pathname) && <Header />}
                 <Outlet />
-                <Footer />
+                {!excludePath.includes(pathname) && <Footer />}
             </GuestGuard>
         </>
     );
