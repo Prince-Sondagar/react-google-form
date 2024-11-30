@@ -1,9 +1,10 @@
 import { ReactNode } from "react";
 
 export interface IRouteArray {
-    path: string;
+    path?: string;
     component?: JSX.Element;
     children?: IRouteArray[];
+    index?: boolean
 };
 
 export type GuardProps = {

@@ -9,11 +9,11 @@ import AuthGuard from "../../utils/route-guard/AuthGuard";
 const DashboardLayout = () => {
     return (
         <>
-            <AuthGuard>
+            {/* <AuthGuard> */}
                 <Header />
                 <Outlet />
                 <Footer />
-            </AuthGuard>
+            {/* </AuthGuard> */}
 
         </>
     );

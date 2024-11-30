@@ -8,6 +8,8 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Root from "../pages/landing";
 import ProfileSetting from "../pages/main/settings/profile";
 import ArtistSetting from "../pages/main/settings/artist";
+import SettingLayout from "../layouts/SettingLayout";
+import AuthGuard from "../utils/route-guard/AuthGuard";
 
 const AuthRoutes: IRouteArray[] = [
     {
@@ -24,23 +26,52 @@ const AuthRoutes: IRouteArray[] = [
     }
 ];
 
+// const AppRoutes: IRouteArray[] = [
+//     {
+//         path: '/dashboard',
+//         component: <Dashboard />
+//     },
+//     {
+//         path: "/settings",
+//         component: <SettingLayout />,
+//         children: [
+//             {
+//                 // path: 'profile',
+//                 component: <ProfileSetting />,
+//                 index: true
+//             },
+//             {
+//                 path: 'artist',
+//                 component: <ArtistSetting />
+//             }
+//         ]
+//     }
+// ];
+
 const AppRoutes: IRouteArray[] = [
     {
-        path: '/dashboard',
-        component: <Dashboard />
+        // path: '/dashboard',
+        path: '/',
+        component: <DashboardLayout />,
+        children: [
+            {
+                path: '/dashboard',
+                component: <Dashboard />,
+            }
+        ]
     },
     {
         path: "/settings",
+        component: <SettingLayout />,
         children: [
             {
-                path: '/profile',
-                component: <ProfileSetting />
-
+                // path: 'profile',
+                index: true,
+                component: <ProfileSetting />,
             },
             {
-                path: '/artist',
+                path: 'artist',
                 component: <ArtistSetting />
-
             }
         ]
     }
@@ -51,11 +82,18 @@ const renderRoutes = (routes: IRouteArray[]) => {
     return routes.map((route, index) => {
         if (route.children) {
             return (
-                <Route path={route.path} key={index}>
+                <Route path={route.path} element={route.component} key={index}>
                     {renderRoutes(route.children)}
                 </Route>
             );
         }
+
+        if (route.index) {
+            return (
+                <Route index element={route.component} key={index} />
+            )
+        }
+
         return (
             <Route path={route.path} element={route.component} key={index} />
         );
@@ -74,7 +112,7 @@ const RouterComponent = () => {
                     ))} */}
                 </Route>
 
-                <Route element={<DashboardLayout />}>
+                <Route element={<AuthGuard />}>
                     {renderRoutes(AppRoutes)}
                     {/* {AppRoutes.map((route, index) => (
                         <Route path={route.path} element={route.component} key={index} />
