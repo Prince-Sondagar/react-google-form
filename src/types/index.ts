@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 
-export type IRouteArray = {
+export interface IRouteArray {
     path: string;
-    component: ReactNode;
+    component?: JSX.Element;
+    children?: IRouteArray[];
 };
 
 export type GuardProps = {

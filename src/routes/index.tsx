@@ -6,6 +6,8 @@ import Dashboard from "../pages/main/dashboard";
 import AuthLayout from "../layouts/AuthLayout";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Root from "../pages/landing";
+import ProfileSetting from "../pages/main/settings/profile";
+import ArtistSetting from "../pages/main/settings/artist";
 
 const AuthRoutes: IRouteArray[] = [
     {
@@ -26,8 +28,39 @@ const AppRoutes: IRouteArray[] = [
     {
         path: '/dashboard',
         component: <Dashboard />
+    },
+    {
+        path: "/settings",
+        children: [
+            {
+                path: '/profile',
+                component: <ProfileSetting />
+
+            },
+            {
+                path: '/artist',
+                component: <ArtistSetting />
+
+            }
+        ]
     }
 ];
+
+
+const renderRoutes = (routes: IRouteArray[]) => {
+    return routes.map((route, index) => {
+        if (route.children) {
+            return (
+                <Route path={route.path} key={index}>
+                    {renderRoutes(route.children)}
+                </Route>
+            );
+        }
+        return (
+            <Route path={route.path} element={route.component} key={index} />
+        );
+    });
+};
 
 const RouterComponent = () => {
 
@@ -35,15 +68,17 @@ const RouterComponent = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<AuthLayout />}>
-                    {AuthRoutes.map((route) => (
-                        <Route path={route.path} element={route.component} />
-                    ))}
+                    {renderRoutes(AuthRoutes)}
+                    {/* {AuthRoutes.map((route, index) => (
+                        <Route path={route.path} element={route.component} key={index} />
+                    ))} */}
                 </Route>
 
                 <Route element={<DashboardLayout />}>
-                    {AppRoutes.map((route) => (
-                        <Route path={route.path} element={route.component} />
-                    ))}
+                    {renderRoutes(AppRoutes)}
+                    {/* {AppRoutes.map((route, index) => (
+                        <Route path={route.path} element={route.component} key={index} />
+                    ))} */}
                 </Route>
             </Routes>
         </BrowserRouter>
