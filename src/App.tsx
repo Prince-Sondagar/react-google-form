@@ -1,12 +1,15 @@
 import React from 'react';
-import './App.css';
 import RouteComponent from './routes/index';
+import { ThemeProvider } from '@mui/material';
+import theme from './themes';
 
 
 function App() {
 
   return (
-    <RouteComponent />
+    <ThemeProvider theme={theme}>
+      <RouteComponent />
+    </ThemeProvider>
   );
 }
 

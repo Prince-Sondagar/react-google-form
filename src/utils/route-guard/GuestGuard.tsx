@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GuardProps } from "../../types";
 import { useNavigate } from "react-router";
+import Loading from "../../components/loading";
 
 
 // This Guard is for UnProtected Routes
@@ -25,7 +26,7 @@ const GuestGuard = ({ children }: GuardProps) => {
     }, [navigate, token]);
 
 
-    if (loading || token) return <h1>Loading ........</h1>;
+    if (loading || token) return <Loading />;
 
     return <>{children}</>;
 };
