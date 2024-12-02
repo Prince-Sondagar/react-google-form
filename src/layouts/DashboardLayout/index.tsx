@@ -11,7 +11,7 @@ const DashboardLayout = () => {
             {/* <AuthGuard> */}
                 <Header />
                 <Outlet />
-                <Footer />
+                {/* <Footer /> */}
             {/* </AuthGuard> */}
 
         </>
