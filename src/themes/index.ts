@@ -19,7 +19,26 @@ const theme = createTheme({
             paper: "#fff",
             default: "#fff"
         }
-    }
+    },
+    components: {
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    color: "#000", 
+                    "& .MuiOutlinedInput-root": {
+                        backgroundColor: "#fff", 
+                        color: "#000", 
+                        "&:hover fieldset": {
+                            borderColor: "#0077b6",
+                        },
+                        "&.Mui-focused fieldset": {
+                            borderColor: "#005f99", 
+                        },
+                    },
+                },
+            },
+        },
+    },
 });
 
 export default theme;
