@@ -1,9 +1,10 @@
+import { Typography } from "@mui/material";
 
 
 const Dashboard = () => {
 
     return (
-        <h1>Dashboard</h1>
+        <Typography>Dashboard</Typography>
     );
 };
 
