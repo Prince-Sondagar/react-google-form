@@ -1,9 +1,9 @@
-import { Box, OutlinedTextFieldProps, TextField, TextFieldProps } from "@mui/material";
+import { Box, OutlinedTextFieldProps, TextField } from "@mui/material";
 
 interface InputProps extends Omit<OutlinedTextFieldProps, "variant"> {
     variant?: "outlined";
 }
-const Input: React.FC<InputProps> = ({ id, label, variant = "outlined", sx, ...rest }) => {
+const Input: React.FC<InputProps> = ({ id, label, variant = "outlined", type = "text", sx, ...rest }) => {
     return (
         <Box
             component="form"
@@ -13,6 +13,7 @@ const Input: React.FC<InputProps> = ({ id, label, variant = "outlined", sx, ...r
         >
             <TextField
                 id={id}
+                type={type}
                 label={label}
                 variant={variant}
                 {...rest}

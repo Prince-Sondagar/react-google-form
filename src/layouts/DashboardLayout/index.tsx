@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "./Header";
 import { Outlet } from "react-router";
-import SideBar from "./sidebar";
 import { Box, Container } from "@mui/material";
+import SideBar from "./SideBar";
 
 const DashboardLayout = () => {
     return (
-        <>
+        <Box>
             <Header />
             <Box
                 sx={{
@@ -33,6 +33,7 @@ const DashboardLayout = () => {
                         flexGrow: 1,
                         overflowY: "auto",
                         padding: 2,
+                        width: `calc(100% - 240px)`,
                     }}
                 >
                     <Container
@@ -44,7 +45,7 @@ const DashboardLayout = () => {
                     </Container>
                 </Box>
             </Box>
-        </>
+        </Box>
     );
 };
 

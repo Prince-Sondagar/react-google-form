@@ -1,10 +1,10 @@
 import { LinearProgress } from "@mui/material";
 
-const Loading = () => {
+const Loader = () => {
 
     return (
         <LinearProgress />
     );
 };
 
-export default Loading;
+export default Loader;

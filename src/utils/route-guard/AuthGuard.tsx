@@ -31,7 +31,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
-import Loading from "../../components/loading";
+import Loader from "../../components/Loader";
 
 // This Guard is for Protected Routes
 const AuthGuard = () => {
@@ -53,7 +53,7 @@ const AuthGuard = () => {
         checkAuth();
     }, [navigate, token]);
 
-    if (loading || !token) return <Loading />;
+    if (loading || !token) return <Loader />;
 
     return <><Outlet /></>;
 };

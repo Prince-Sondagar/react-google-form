@@ -1,44 +1,33 @@
-import { createTheme } from "@mui/material";
+import { createTheme, Theme } from "@mui/material";
+import ComponentsOverrides from "./overrides";
+
+let secondaryColors = ['#F8F9FA', '#F8F9FA', '#F3F5F7', '#DBE0E5', '#BEC8D0', '#8996A4', '#5B6B79', '#3E4853', '#1D2630', '#131920'];
 
 
-const theme = createTheme({
+const themes: Theme = createTheme({
     palette: {
         primary: {
-            main: '#38bdf8',
+            main: '#2196f3',
+            dark: "#1565c0",
         },
         secondary: {
-            main: '#d1d5db',
+            main: '#5b6b79',
             light: "#F8F9FA",
+            800: secondaryColors[8],
         },
         text: {
             primary: '#F8F9FA',
             secondary: '#5B6B79',
             disabled: "#BEC8D0",
+
         },
         background: {
             paper: "#fff",
-            default: "#fff"
-        }
-    },
-    components: {
-        MuiTextField: {
-            styleOverrides: {
-                root: {
-                    color: "#000", 
-                    "& .MuiOutlinedInput-root": {
-                        backgroundColor: "#fff", 
-                        color: "#000", 
-                        "&:hover fieldset": {
-                            borderColor: "#0077b6",
-                        },
-                        "&.Mui-focused fieldset": {
-                            borderColor: "#005f99", 
-                        },
-                    },
-                },
-            },
+            default: "#fff",
         },
     },
 });
 
-export default theme;
+themes.components = ComponentsOverrides(themes);
+
+export default themes;
