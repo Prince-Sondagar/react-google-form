@@ -1,8 +1,8 @@
 import * as yup from 'yup';
 
 export const AppointmentCreationSchema = yup.object().shape({
-    firstName: yup.string().required("firstName is required"),
-    lastName: yup.string().required("lastName is rquired"),
+    firstName: yup.string().required("FirstName is required"),
+    lastName: yup.string().required("LastName is rquired"),
     age: yup.number().required("Age is required").min(18, "Age must be grather than 18 years").max(60, "Age must be less than 60 years"),
     gender: yup.string().required("Gender is required"),
     email: yup.string().required("Email is required"),

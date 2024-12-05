@@ -1,27 +1,9 @@
-import { Box, Card, CardContent, CardHeader, Divider, FormControlLabel, FormHelperText, Grid, InputLabel, Radio, RadioGroup, TextField, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Divider, FormControlLabel, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material";
 import Input from "../../../../components/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AppointmentCreationSchema } from "../../../../utils/schema";
 import CommonButton from "../../../../components/ui/button";
-
-
-
-// First Name
-// Last Name
-// Age
-// Gender
-// Email ID
-// Mobile Number
-// Marital Status
-// Blood Group
-// Country
-// State
-// City
-// House Number
-// Street
-// Zip Code
-// terms and condition
 
 
 const AppointmentCreationForm = () => {
@@ -51,8 +33,8 @@ const AppointmentCreationForm = () => {
         }
     })
 
-    const handleSaveSubmit = () => {
-
+    const onsubmit = (data: any) => {
+        console.log(" ===>", data)
     }
 
     return (
@@ -67,7 +49,7 @@ const AppointmentCreationForm = () => {
                 <Box>
 
                 </Box>
-                <form onSubmit={handleSubmit(handleSaveSubmit)}>
+                <form onSubmit={handleSubmit(onsubmit)}>
                     <Box sx={{ my: 2 }}>
                         <Grid container spacing={2}>
                             <Grid item xl={6} xs={12} md={6} sm={12}>
@@ -137,7 +119,7 @@ const AppointmentCreationForm = () => {
                                         <RadioGroup
                                             row
                                             aria-labelledby="demo-row-radio-buttons-group-label"
-                                            name="row-radio-buttons-group"
+                                            {...field}
                                         >
                                             <FormControlLabel value="female" control={<Radio />} label="Female" />
                                             <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -198,16 +180,30 @@ const AppointmentCreationForm = () => {
                                     name="maritalStatus"
                                     control={control}
                                     render={({ field }) => (
-                                        <Input
+                                        <Select
+                                            labelId="demo-select-small-label"
+                                            id="demo-select-small"
                                             fullWidth
-                                            type="number"
-                                            placeholder="MaritalStatus is required"
-                                            error={!!errors.maritalStatus}
-                                            helperText={errors.maritalStatus?.message}
                                             {...field}
-                                        />
+                                            sx={{
+                                                height: "40px"
+                                            }}
+                                            displayEmpty
+                                            error={!!errors.maritalStatus}
+                                        >
+                                            <MenuItem value="" disabled>
+                                                Select Marital Status
+                                            </MenuItem>
+                                            <MenuItem value="single">Single</MenuItem>
+                                            <MenuItem value="married">Married</MenuItem>
+                                        </Select>
                                     )}
                                 />
+                                {errors.maritalStatus?.message && (
+                                    <Typography color="error" variant="caption">
+                                        {errors.maritalStatus?.message}
+                                    </Typography>
+                                )}
                             </Grid>
                             <Grid item xl={6} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
@@ -217,11 +213,185 @@ const AppointmentCreationForm = () => {
                                     name="bloodGroup"
                                     control={control}
                                     render={({ field }) => (
+                                        <Select
+                                            labelId="demo-select-small-label"
+                                            id="demo-select-small"
+                                            fullWidth
+                                            {...field}
+                                            sx={{
+                                                height: "40px"
+                                            }}
+                                            displayEmpty
+                                            error={!!errors.bloodGroup}
+                                        >
+                                            <MenuItem value="" disabled>
+                                                Select Your Blood Group
+                                            </MenuItem>
+                                            <MenuItem value="A+">A+</MenuItem>
+                                            <MenuItem value="A-">A-</MenuItem>
+                                            <MenuItem value="B+">B+</MenuItem>
+                                            <MenuItem value="B-">B-</MenuItem>
+                                            <MenuItem value="O+">O+</MenuItem>
+                                            <MenuItem value="O-">O-</MenuItem>
+                                            <MenuItem value="AB+">AB+</MenuItem>
+                                            <MenuItem value="AB-">AB-</MenuItem>
+                                        </Select>
+                                    )}
+                                />
+                                {errors.bloodGroup?.message && (
+                                    <Typography color="error" variant="caption">
+                                        {errors.bloodGroup?.message}
+                                    </Typography>
+                                )}
+                            </Grid>
+                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                                <Box mb={1}>
+                                    <InputLabel>Country</InputLabel>
+                                </Box>
+                                <Controller
+                                    name="country"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            labelId="demo-select-small-label"
+                                            id="demo-select-small"
+                                            fullWidth
+                                            {...field}
+                                            sx={{
+                                                height: "40px"
+                                            }}
+                                            displayEmpty
+                                            error={!!errors.country}
+                                        >
+                                            <MenuItem value="" disabled>
+                                                Select Country
+                                            </MenuItem>
+                                            <MenuItem value="india">India</MenuItem>
+                                            <MenuItem value="afghanistan">Afghanistan</MenuItem>
+                                        </Select>
+                                    )}
+                                />
+                                {errors.country?.message && (
+                                    <Typography color="error" variant="caption">
+                                        {errors.country?.message}
+                                    </Typography>
+                                )}
+                            </Grid>
+                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                                <Box mb={1}>
+                                    <InputLabel>State</InputLabel>
+                                </Box>
+                                <Controller
+                                    name="state"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            labelId="demo-select-small-label"
+                                            id="demo-select-small"
+                                            fullWidth
+                                            {...field}
+                                            sx={{
+                                                height: "40px"
+                                            }}
+                                            displayEmpty
+                                            error={!!errors.state}
+                                        >
+                                            <MenuItem value="" disabled>
+                                                Select State
+                                            </MenuItem>
+                                            <MenuItem value="india">Gujrat</MenuItem>
+                                            <MenuItem value="afghanistan">Rajasthan</MenuItem>
+                                        </Select>
+                                    )}
+                                />
+                                {errors.state?.message && (
+                                    <Typography color="error" variant="caption">
+                                        {errors.state?.message}
+                                    </Typography>
+                                )}
+                            </Grid>
+                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                                <Box mb={1}>
+                                    <InputLabel>City</InputLabel>
+                                </Box>
+                                <Controller
+                                    name="city"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            labelId="demo-select-small-label"
+                                            id="demo-select-small"
+                                            fullWidth
+                                            {...field}
+                                            sx={{
+                                                height: "40px"
+                                            }}
+                                            displayEmpty
+                                            error={!!errors.city}
+                                        >
+                                            <MenuItem value="" disabled>
+                                                Select City
+                                            </MenuItem>
+                                            <MenuItem value="surat">Gujrat</MenuItem>
+                                            <MenuItem value="ahemdabad">Ahemdabad</MenuItem>
+                                        </Select>
+                                    )}
+                                />
+                                {errors.city?.message && (
+                                    <Typography color="error" variant="caption">
+                                        {errors.city?.message}
+                                    </Typography>
+                                )}
+                            </Grid>
+                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                                <Box mb={1}>
+                                    <InputLabel>House Number</InputLabel>
+                                </Box>
+                                <Controller
+                                    name="houseNumber"
+                                    control={control}
+                                    render={({ field }) => (
                                         <Input
                                             fullWidth
-                                            placeholder="BloodGroup is required"
-                                            error={!!errors.bloodGroup}
-                                            helperText={errors.bloodGroup?.message}
+                                            placeholder="House/Building No"
+                                            error={!!errors.houseNumber}
+                                            helperText={errors.houseNumber?.message}
+                                            {...field}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                                <Box mb={1}>
+                                    <InputLabel>Street</InputLabel>
+                                </Box>
+                                <Controller
+                                    name="street"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Input
+                                            fullWidth
+                                            placeholder="street"
+                                            error={!!errors.street}
+                                            helperText={errors.street?.message}
+                                            {...field}
+                                        />
+                                    )}
+                                />
+                            </Grid>
+                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                                <Box mb={1}>
+                                    <InputLabel>Zip Code</InputLabel>
+                                </Box>
+                                <Controller
+                                    name="zipCode"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Input
+                                            fullWidth
+                                            placeholder="Enter ZipCode"
+                                            error={!!errors.zipCode}
+                                            helperText={errors.zipCode?.message}
                                             {...field}
                                         />
                                     )}
