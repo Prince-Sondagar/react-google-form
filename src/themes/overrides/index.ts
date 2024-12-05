@@ -1,17 +1,21 @@
-import { Theme } from "@mui/material";
-import InputLabel from "./inputLabel";
+
+import { Theme } from "@mui/material/styles";
 import { merge } from "lodash";
-import InputBase from "./inputBase";
-import Typography from "./typograph";
+import InputBase from "./InputBase";
+import InputLabel from "./InputLabel";
+import Typography from "./typography";
+import OutlinedInput from "./OutlinedInput";
+import FormHelperText from "./FormHelperText";
 
 
 export default function ComponentsOverrides(theme: Theme) {
-
     return (
         merge(
             InputLabel(theme),
             InputBase(theme),
-            Typography(theme)
+            Typography(theme),
+            OutlinedInput(theme),
+            FormHelperText()
         )
 
     )
