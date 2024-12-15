@@ -17,7 +17,7 @@ const AppointmentCreationForm = () => {
         defaultValues: {
             firstName: "",
             lastName: "",
-            age: 0,
+            age: undefined,
             gender: "",
             email: "",
             phoneNumber: "",
