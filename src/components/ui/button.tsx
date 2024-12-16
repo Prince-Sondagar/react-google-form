@@ -133,6 +133,7 @@ type MuiButtonProps = {
     type?: "button" | "submit" | "reset";
     sx?: object;
     loading?: boolean;
+    startIcon?: JSX.Element
 };
 
 const CommonButton = ({

@@ -10,6 +10,7 @@ import ProfileSetting from "../pages/main/settings/profile";
 import ArtistSetting from "../pages/main/settings/artist";
 import SettingLayout from "../layouts/SettingLayout";
 import AuthGuard from "../utils/route-guard/AuthGuard";
+import AppointmentCreationForm from "../pages/main/dashboard/components/appointCreationForm";
 
 const AuthRoutes: IRouteArray[] = [
     {
@@ -57,6 +58,10 @@ const AppRoutes: IRouteArray[] = [
             {
                 path: '/dashboard',
                 component: <Dashboard />,
+            },
+            {
+                path: '/appointmentCreate',
+                component: <AppointmentCreationForm />,
             }
         ]
     },

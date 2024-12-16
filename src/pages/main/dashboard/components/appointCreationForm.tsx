@@ -1,17 +1,20 @@
-import { Box, Card, CardContent, CardHeader, Divider, FormControlLabel, FormHelperText, Grid, InputLabel, MenuItem, OutlinedInput, Radio, RadioGroup, Select, TextField, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Divider, FormControlLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Typography } from "@mui/material";
 import Input from "../../../../components/ui/input";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AppointmentCreationSchema } from "../../../../utils/schema";
 import CommonButton from "../../../../components/ui/button";
+import { useNavigate } from "react-router";
 
 
 const AppointmentCreationForm = () => {
+    const navigate = useNavigate();
 
     const {
         control,
         formState: { errors },
-        handleSubmit
+        handleSubmit,
+        reset
     } = useForm({
         resolver: yupResolver(AppointmentCreationSchema),
         defaultValues: {
@@ -31,10 +34,13 @@ const AppointmentCreationForm = () => {
             zipCode: "",
             // termsAndCondition: false
         }
-    })
+    });
+
 
     const onsubmit = (data: any) => {
-        console.log(" ===>", data)
+        const existingDetsils = JSON.parse(localStorage.getItem('userDetails') || '[]');
+        localStorage.setItem("userDetails", JSON.stringify([...existingDetsils, data]));
+        navigate('/dashboard')
     }
 
     return (
@@ -52,7 +58,7 @@ const AppointmentCreationForm = () => {
                 <form onSubmit={handleSubmit(onsubmit)}>
                     <Box sx={{ my: 2 }}>
                         <Grid container spacing={2}>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>First Name</InputLabel>
                                 </Box>
@@ -70,7 +76,7 @@ const AppointmentCreationForm = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Last Name</InputLabel>
                                 </Box>
@@ -88,7 +94,7 @@ const AppointmentCreationForm = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Age</InputLabel>
                                 </Box>
@@ -108,7 +114,7 @@ const AppointmentCreationForm = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Gender</InputLabel>
                                 </Box>
@@ -133,7 +139,7 @@ const AppointmentCreationForm = () => {
                                     </Typography>
                                 )}
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Email ID</InputLabel>
                                 </Box>
@@ -153,7 +159,7 @@ const AppointmentCreationForm = () => {
                                 />
 
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Phone Number</InputLabel>
                                 </Box>
@@ -172,7 +178,7 @@ const AppointmentCreationForm = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Marital Status</InputLabel>
                                 </Box>
@@ -205,7 +211,7 @@ const AppointmentCreationForm = () => {
                                     </Typography>
                                 )}
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Blood Group</InputLabel>
                                 </Box>
@@ -244,7 +250,7 @@ const AppointmentCreationForm = () => {
                                     </Typography>
                                 )}
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Country</InputLabel>
                                 </Box>
@@ -277,7 +283,7 @@ const AppointmentCreationForm = () => {
                                     </Typography>
                                 )}
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>State</InputLabel>
                                 </Box>
@@ -310,7 +316,7 @@ const AppointmentCreationForm = () => {
                                     </Typography>
                                 )}
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>City</InputLabel>
                                 </Box>
@@ -343,7 +349,7 @@ const AppointmentCreationForm = () => {
                                     </Typography>
                                 )}
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>House Number</InputLabel>
                                 </Box>
@@ -361,7 +367,7 @@ const AppointmentCreationForm = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Street</InputLabel>
                                 </Box>
@@ -379,7 +385,7 @@ const AppointmentCreationForm = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xl={6} xs={12} md={6} sm={12}>
+                            <Grid item xl={4} xs={12} md={6} sm={12}>
                                 <Box mb={1}>
                                     <InputLabel>Zip Code</InputLabel>
                                 </Box>
@@ -403,6 +409,7 @@ const AppointmentCreationForm = () => {
                         <CommonButton
                             variant="outline"
                             type="button"
+                            onClick={() => reset()}
                         >
                             Cancel
                         </CommonButton>
