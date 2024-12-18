@@ -13,60 +13,34 @@ const Dashboard = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState<number>(0);
-    const itemsPerPage = 1;
+    const itemsPerPage = 2;
     // const totalPages = Math.ceil(userDetails?.length / itemsPerPage);
 
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("userDetails") || '[]');
         setUserDetails(data);
-        setFilteredUser(data);
+        setFilteredUser(data.slice(0, itemsPerPage));
         setTotalPages(Math.ceil(data?.length / itemsPerPage));
     }, []);
 
     useEffect(() => {
-        if (filteredUsers.length > 0) {
-            console.log("filteredUsers ===>", filteredUsers);
-            const paginatedData = filteredUsers?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-            console.log("paginatedData==>", paginatedData);
-            setFilteredUser(paginatedData);
-        }
-    }, [currentPage]);
+        const searchFields = ["firstName", "lastName", "gender", "city", "email", "maritalStatus", "country", "state", "phoneNumber"];
+        const filteredResult = userDetails.filter((user: any) =>
+            searchQuery ? searchFields.some((field) => user[field]?.toLowerCase().includes(searchQuery.toLowerCase())) : true
+        );
+        setTotalPages(Math.ceil(filteredResult?.length / itemsPerPage));
+        const paginatedData = filteredResult?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+        setFilteredUser(paginatedData);
+    }, [currentPage, searchQuery, userDetails]);
 
-    useEffect(() => {
-        if (searchQuery.trim()) {
-            const searchFields = ["firstName", "lastName", "gender", "city", "email", "maritalStatus", "country", "state", "phoneNumber"];
-            const filteredResult = userDetails.filter((user: any) => {
-                //     const combinedFields = `
-                //     ${user?.firstName || ""} 
-                //     ${user?.lastName || ""} 
-                //     ${user?.gender || ""} 
-                //     ${user?.city || ""} 
-                //     ${user?.email || ""} 
-                //     ${user?.maritalStatus || ""} 
-                //     ${user?.country || ""} 
-                //     ${user?.state || ""}
-                //     ${user?.phoneNumber || ""}
-                // `.toLowerCase();
-                //     return combinedFields.includes(searchQuery.toLowerCase());
-                searchFields.some((field: any) =>
-                    user[field]?.toLowerCase().includes(searchQuery?.toLowerCase())
-                );
-            });
-            setTotalPages(Math.ceil(filteredResult?.length / itemsPerPage));
-            setFilteredUser(filteredResult);
-        } else {
-            userDetails?.length && setFilteredUser(userDetails);
-        }
-    }, [searchQuery]);
-    // console.log("userDetails ===>", userDetails);
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
 
     return (
-        <Box sx={{ mb: 3 }}>
+        <Box sx={{ mb: 5 }}>
             <>
                 <Box sx={{ mb: 3 }}>
                     <Paper
@@ -80,7 +54,10 @@ const Dashboard = () => {
                             placeholder="Search..."
                             inputProps={{ 'aria-label': 'search' }}
                             value={searchQuery}
-                            onChange={({ target: { value } }) => setSearchQuery(value)}
+                            onChange={({ target: { value } }) => {
+                                setCurrentPage(1);
+                                setSearchQuery(value)
+                            }}
                         />
                     </Paper>
                 </Box>
@@ -136,6 +113,7 @@ const Dashboard = () => {
                     </>
                 )}
 
+                {console.log("filteredUsers ---->", filteredUsers)}
                 {filteredUsers.length > 0 && (
                     <Box sx={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
                         <Pagination
