@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardHeader, Divider, FormControlLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Typography } from "@mui/material";
 import Input from "../../../../components/ui/input";
 import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup';
 import { AppointmentCreationSchema } from "../../../../utils/schema";
 import CommonButton from "../../../../components/ui/button";
 import { useNavigate } from "react-router";
@@ -40,8 +40,8 @@ const AppointmentCreationForm = () => {
     const onsubmit = (data: any) => {
         const existingDetsils = JSON.parse(localStorage.getItem('userDetails') || '[]');
         localStorage.setItem("userDetails", JSON.stringify([...existingDetsils, data]));
-        navigate('/dashboard')
-    }
+        navigate('/dashboard');
+    };
 
     return (
         <Card sx={{ minWidth: 400 }}>
@@ -192,7 +192,11 @@ const AppointmentCreationForm = () => {
                                             fullWidth
                                             {...field}
                                             sx={{
-                                                height: "40px"
+                                                height: "40px",
+                                                width: '100%',
+                                                '& .MuiSelect-select': {
+                                                    fontSize: '14px',
+                                                },
                                             }}
                                             displayEmpty
                                             error={!!errors.maritalStatus}
@@ -225,7 +229,10 @@ const AppointmentCreationForm = () => {
                                             fullWidth
                                             {...field}
                                             sx={{
-                                                height: "40px"
+                                                height: "40px",
+                                                '& .MuiSelect-select': {
+                                                    fontSize: '14px',
+                                                },
                                             }}
                                             displayEmpty
                                             error={!!errors.bloodGroup}
@@ -264,7 +271,10 @@ const AppointmentCreationForm = () => {
                                             fullWidth
                                             {...field}
                                             sx={{
-                                                height: "40px"
+                                                height: "40px",
+                                                '& .MuiSelect-select': {
+                                                    fontSize: '14px',
+                                                },
                                             }}
                                             displayEmpty
                                             error={!!errors.country}
@@ -297,7 +307,10 @@ const AppointmentCreationForm = () => {
                                             fullWidth
                                             {...field}
                                             sx={{
-                                                height: "40px"
+                                                height: "40px",
+                                                '& .MuiSelect-select': {
+                                                    fontSize: '14px',
+                                                },
                                             }}
                                             displayEmpty
                                             error={!!errors.state}
@@ -330,7 +343,10 @@ const AppointmentCreationForm = () => {
                                             fullWidth
                                             {...field}
                                             sx={{
-                                                height: "40px"
+                                                height: "40px",
+                                                '& .MuiSelect-select': {
+                                                    fontSize: '14px',
+                                                },
                                             }}
                                             displayEmpty
                                             error={!!errors.city}
@@ -377,7 +393,7 @@ const AppointmentCreationForm = () => {
                                     render={({ field }) => (
                                         <Input
                                             fullWidth
-                                            placeholder="street"
+                                            placeholder="Enter Street"
                                             error={!!errors.street}
                                             helperText={errors.street?.message}
                                             {...field}
@@ -423,7 +439,7 @@ const AppointmentCreationForm = () => {
                 </form>
             </CardContent>
         </Card>
-    )
-}
+    );
+};
 
 export default AppointmentCreationForm;

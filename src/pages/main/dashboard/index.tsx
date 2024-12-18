@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CommonButton from "../../../components/ui/button";
 import { useNavigate } from "react-router";
 import { Box, Button, Card, CardActions, CardContent, Divider, Grid, InputBase, Paper, Typography } from "@mui/material";
-import { Edit, Delete, Search } from '@mui/icons-material'
+import { Edit, Delete, Search } from '@mui/icons-material';
 import Pagination from "../../../components/Pagination";
 
 
@@ -12,40 +12,48 @@ const Dashboard = () => {
     const [filteredUsers, setFilteredUser] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState<number>(0);
     const itemsPerPage = 1;
-    const totalPages = Math.ceil(userDetails?.length / itemsPerPage);
+    // const totalPages = Math.ceil(userDetails?.length / itemsPerPage);
 
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("userDetails") || '[]');
-        console.log("data ===>", data);
-        const paginatedate = data?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-        console.log("paginatedate", paginatedate);
         setUserDetails(data);
-        setFilteredUser(paginatedate);
+        setFilteredUser(data);
+        setTotalPages(Math.ceil(data?.length / itemsPerPage));
+    }, []);
+
+    useEffect(() => {
+        if (filteredUsers.length > 0) {
+            console.log("filteredUsers ===>", filteredUsers);
+            const paginatedData = filteredUsers?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+            console.log("paginatedData==>", paginatedData);
+            setFilteredUser(paginatedData);
+        }
     }, [currentPage]);
 
     useEffect(() => {
         if (searchQuery.trim()) {
             const searchFields = ["firstName", "lastName", "gender", "city", "email", "maritalStatus", "country", "state", "phoneNumber"];
-            // const filteredResult = userDetails.filter((userdetail: any) => userdetail?.firstName.toLowerCase().includes(searchQuery.toLowerCase()));
             const filteredResult = userDetails.filter((user: any) => {
-                const combinedFields = `
-                ${user?.firstName || ""} 
-                ${user?.lastName || ""} 
-                ${user?.gender || ""} 
-                ${user?.city || ""} 
-                ${user?.email || ""} 
-                ${user?.maritalStatus || ""} 
-                ${user?.country || ""} 
-                ${user?.state || ""}
-                ${user?.phoneNumber || ""}
-            `.toLowerCase();
-                return combinedFields.includes(searchQuery.toLowerCase());
+                //     const combinedFields = `
+                //     ${user?.firstName || ""} 
+                //     ${user?.lastName || ""} 
+                //     ${user?.gender || ""} 
+                //     ${user?.city || ""} 
+                //     ${user?.email || ""} 
+                //     ${user?.maritalStatus || ""} 
+                //     ${user?.country || ""} 
+                //     ${user?.state || ""}
+                //     ${user?.phoneNumber || ""}
+                // `.toLowerCase();
+                //     return combinedFields.includes(searchQuery.toLowerCase());
+                searchFields.some((field: any) =>
+                    user[field]?.toLowerCase().includes(searchQuery?.toLowerCase())
+                );
             });
-            // searchFields.some((field: any) =>
-            //     user[field]?.toLowerCase().includes(searchQuery?.toLowerCase())
-            // )
+            setTotalPages(Math.ceil(filteredResult?.length / itemsPerPage));
             setFilteredUser(filteredResult);
         } else {
             userDetails?.length && setFilteredUser(userDetails);
@@ -54,8 +62,8 @@ const Dashboard = () => {
     // console.log("userDetails ===>", userDetails);
 
     const handlePageChange = (page: number) => {
-        setCurrentPage(page)
-    }
+        setCurrentPage(page);
+    };
 
     return (
         <Box sx={{ mb: 3 }}>
@@ -78,24 +86,26 @@ const Dashboard = () => {
                 </Box>
 
                 {!userDetails.length && (
-                    <>
-                        <Typography>No Data Available</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: "center", flexDirection: "column", alignItems: "center", height: "100vh" }}>
+                        <Typography variant="h5">No Data Available</Typography>
                         <CommonButton
-                            variant="outline"
+                            variant="link"
                             onClick={() => navigate('/appointmentCreate')}
                         >
                             Create  Appointment
                         </CommonButton>
-                    </>
+                    </Box>
                 )}
 
                 {(searchQuery && !filteredUsers.length) && (
-                    <Typography>No Search Result Found</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: "center", flexDirection: "column", alignItems: "center", height: "100vh" }}>
+                        <Typography>No Search Result Found</Typography>
+                    </Box>
                 )}
 
                 {filteredUsers?.length > 0 && (
                     <>
-                        <Box>
+                        <Box >
                             <Grid container spacing={2}>
                                 {filteredUsers?.map((user: any) => (
                                     <Grid item xl={4} xs={6} md={6} sm={6}>
@@ -127,11 +137,13 @@ const Dashboard = () => {
                 )}
 
                 {filteredUsers.length > 0 && (
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        handlePageChange={handlePageChange}
-                    />
+                    <Box sx={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            handlePageChange={handlePageChange}
+                        />
+                    </Box>
                 )}
             </>
         </Box>

@@ -6,7 +6,7 @@ import { Home, Add } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router';
 
 
-const drawerWidth = 240;
+const drawerWidth = 270;
 
 const sidebarItems = [
     { text: 'Dashboard', icon: <Home />, to: "/dashboard" },

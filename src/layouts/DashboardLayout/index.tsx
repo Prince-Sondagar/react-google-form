@@ -59,22 +59,25 @@
 import React from "react";
 import Header from "./Header";
 import { Outlet } from "react-router";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import SideBar from "./SideBar";
 
 const DashboardLayout = () => {
     return (
-        <Box>
+        <Box sx={{ height: "100vh" }}>
             <Header />
             <Box
                 sx={{
                     display: "flex",
                     height: "calc(100vh - 60px)",
+                    overflowX: "hidden",
+                    marginX: "auto",
+                    width: "100%"
                 }}
             >
                 <Box
                     sx={{
-                        width: 240,
+                        width: 270,
                         flexShrink: 0,
                         bgcolor: "background.paper",
                         borderRight: 1,
@@ -90,17 +93,14 @@ const DashboardLayout = () => {
                     sx={{
                         flexGrow: 1,
                         overflowY: "auto",
-                        padding: 2,
+                        overflowX: "hidden",
+                        padding: 3,
                         width: `calc(100% - 240px)`,
+                        maxWidth: "100%"
                     }}
+                    className="no-scrollbar"
                 >
-                    <Container
-                        sx={{
-                            padding: 0,
-                        }}
-                    >
-                        <Outlet />
-                    </Container>
+                    <Outlet />
                 </Box>
             </Box>
         </Box>

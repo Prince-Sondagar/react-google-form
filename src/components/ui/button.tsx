@@ -110,7 +110,18 @@ const StyledButton = styled(Button)(({ theme }) => ({
             border: '1px dashed #3e4853',
         },
     },
-}))
+    "&.link": {
+        backgroundColor: "transparent",
+        color: '#35a1d3',
+        textDecoration: "underline",
+        textUnderlineOffset: "4px",
+        fontWeight: '400',
+        height: 'auto !important',
+        "&:hover": {
+            textDecoration: 'none',
+        },
+    },
+}));
 
 
 type MuiButtonProps = {
@@ -124,7 +135,8 @@ type MuiButtonProps = {
     | "grey"
     | "danger"
     | "secondary"
-    | "dashed";
+    | "dashed"
+    | "link";
     sizeType?: "defaultSize" | "sm" | "lg" | "icon" | "xs";
     style?: React.CSSProperties;
     children?: ReactNode;
@@ -133,7 +145,7 @@ type MuiButtonProps = {
     type?: "button" | "submit" | "reset";
     sx?: object;
     loading?: boolean;
-    startIcon?: JSX.Element
+    startIcon?: JSX.Element;
 };
 
 const CommonButton = ({
@@ -174,7 +186,7 @@ const CommonButton = ({
                 children
             )}
         </StyledButton>
-    )
-}
+    );
+};
 
 export default CommonButton;
