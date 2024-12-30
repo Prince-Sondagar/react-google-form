@@ -71,10 +71,22 @@ const StyledButton = styled(Button)(({ theme }) => ({
             color: "#fff",
         },
     },
+    "&.danger-outline": {
+        border: "1px solid #dc3545",
+        color: "#dc3545",
+        padding: "8px 20px",
+        "&:hover": {
+            backgroundColor: "#ef4050",
+            border: "1px solid #ef4050",
+            color: "#fff",
+            fontWeight: 700
+        },
+    },
     "&.primary": {
         backgroundColor: theme.palette.primary.main,
         color: "white",
         padding: "8px 20px",
+        fontWeight: 700,
         "&:hover": {
             backgroundColor: theme.palette.primary.dark,
         },
@@ -136,7 +148,8 @@ type MuiButtonProps = {
     | "danger"
     | "secondary"
     | "dashed"
-    | "link";
+    | "link"
+    | "danger-outline"
     sizeType?: "defaultSize" | "sm" | "lg" | "icon" | "xs";
     style?: React.CSSProperties;
     children?: ReactNode;

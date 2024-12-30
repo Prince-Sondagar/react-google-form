@@ -9,8 +9,9 @@ import ProfileSetting from "../pages/main/settings/profile";
 import ArtistSetting from "../pages/main/settings/artist";
 import SettingLayout from "../layouts/SettingLayout";
 import AuthGuard from "../utils/route-guard/AuthGuard";
-import AppointmentCreationForm from "../pages/main/dashboard/components/appointCreationForm";
+
 import GuestGuard from "../utils/route-guard/GuestGuard";
+import AppointmentCreationForm from "../components/dashboard/appointCreationForm";
 
 const AuthRoutes: IRouteArray[] = [
     {

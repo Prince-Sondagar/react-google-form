@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommonButton from "../../../components/ui/button";
 import { useNavigate } from "react-router";
-import { Box, Button, Card, CardActions, CardContent, Divider, Grid, InputBase, Paper, Typography } from "@mui/material";
+import { Box, Card, CardActions, CardContent, Divider, Grid, InputBase, Paper, Typography } from "@mui/material";
 import { Edit, Delete, Search } from '@mui/icons-material';
 import Pagination from "../../../components/Pagination";
 
@@ -56,7 +56,7 @@ const Dashboard = () => {
                             value={searchQuery}
                             onChange={({ target: { value } }) => {
                                 setCurrentPage(1);
-                                setSearchQuery(value)
+                                setSearchQuery(value);
                             }}
                         />
                     </Paper>
@@ -113,7 +113,6 @@ const Dashboard = () => {
                     </>
                 )}
 
-                {console.log("filteredUsers ---->", filteredUsers)}
                 {filteredUsers.length > 0 && (
                     <Box sx={{ display: "flex", justifyContent: "end", marginTop: 10 }}>
                         <Pagination
